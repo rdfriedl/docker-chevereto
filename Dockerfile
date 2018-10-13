@@ -1,9 +1,6 @@
 FROM php:7.2.10-apache
 MAINTAINER "Robert Friedl <rdfriedl@gmail.com>"
 
-ENV CHEVERETO_APACHE_RUN_USER www-data
-ENV CHEVERETO_APACHE_RUN_GROUP www-data
-
 # DB connection environment variables
 ENV CHEVERETO_DB_HOST db
 ENV CHEVERETO_DB_USERNAME chevereto
@@ -37,7 +34,10 @@ RUN git clone https://github.com/Chevereto/Chevereto-Free.git ${CHEVERETO_CLONE_
     && rsync -avip ${CHEVERETO_CLONE_DIR}/ /var/www/html/ \
     && rm -rf ${CHEVERETO_CLONE_DIR}
 
-USER ${CHEVERETO_APACHE_RUN_USER}
+RUN mkdir -p /var/www/html/images
+RUN chown www-data:www-data /var/www/html -R
+
+USER www-data
 
 COPY settings.php /var/www/html/app/settings.php
 
@@ -46,5 +46,3 @@ VOLUME /var/www/html/images
 
 # Change back to root user for normal Service start up
 USER root
-
-RUN chown ${CHEVERETO_APACHE_RUN_USER}:${CHEVERETO_APACHE_RUN_GROUP} /var/www/html -R
