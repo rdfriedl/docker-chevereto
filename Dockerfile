@@ -30,7 +30,7 @@ LABEL org.label-schema.url="https://github.com/rdfriedl/docker-chevereto" \
       com.puppet.dockerfile="/Dockerfile"
 
 # Download installer script
-RUN git clone https://github.com/Chevereto/Chevereto-Free.git ${CHEVERETO_CLONE_DIR} \
+RUN git clone https://github.com/rdfriedl/Chevereto-Free.git ${CHEVERETO_CLONE_DIR} \
     && rsync -avip ${CHEVERETO_CLONE_DIR}/ /var/www/html/ \
     && rm -rf ${CHEVERETO_CLONE_DIR}
 
@@ -39,6 +39,7 @@ RUN chown www-data:www-data /var/www/html -R
 
 USER www-data
 
+COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
 COPY settings.php /var/www/html/app/settings.php
 
 # Expose the image directory
