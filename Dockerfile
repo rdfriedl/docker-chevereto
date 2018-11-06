@@ -44,6 +44,7 @@ COPY settings.php /var/www/html/app/settings.php
 
 # Expose the image directory
 VOLUME /var/www/html/images
+VOLUME /var/www/html/content
 
 # Change back to root user for normal Service start up
 USER root
