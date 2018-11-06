@@ -39,7 +39,7 @@ RUN chown www-data:www-data /var/www/html -R
 
 USER www-data
 
-COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
+COPY php.ini /usr/local/etc/php/conf.d/php.ini
 COPY settings.php /var/www/html/app/settings.php
 
 # Expose the image directory
